@@ -3,8 +3,8 @@ from waitress import serve
 from flask import render_template, request
 import os
 
-
-
+# pip3 install flask
+# pip3 install waitress
 
 
 os.environ['GLOG_minloglevel'] = '2'

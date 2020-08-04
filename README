@@ -1,0 +1,7 @@
+Run:
+pip3 install waitress
+pip3 install flask
+
+To run the program
+
+python3 main.py

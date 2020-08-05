@@ -6,11 +6,8 @@
 </head>
 <body>
 {{msg}}<br>
-<form id="input" action="/submit_house" method="POST">
-    <input name="text">
-    <br>Has covid?<input type="checkbox" name="covid" >
-    <input type="submit">
-</form>
+
+
 
 <form id="input" action="/submit_friends" method="POST">
     <br>Friend 1
@@ -20,6 +17,27 @@
     <input type="submit">
 </form>
 {{Friends}}<br>
+
+<h3>Register a new house</h3>
+
+
+
+<div id="house_form">
+    <form id="input" action="/submit_house" method="POST">
+
+    <input name="address" placeholder="Home Address"><br>
+    <input name="member1" placeholder="Housemate 1"><input type="checkbox" name="covid-1" ><br>
+    <input name="member2" placeholder="Housemate 2"><input type="checkbox" name="covid-2" ><br>
+    <input name="member3" placeholder="Housemate 3"><input type="checkbox" name="covid-3" ><br>
+    <input name="member4" placeholder="Housemate 4"><input type="checkbox" name="covid-4" ><br>
+    <input type="submit">
+</form>
+
+
+</div>
+
+
+>>>>>>> 33b6869c0a3a6f6af3f673b8ace113d875e0a370
 
 </body>
 </html>

@@ -54,7 +54,7 @@ def proc_friends():
     text = request.form['text']
     try:
         (chb := request.form['covid'])
-        chb = True
+        chb = True # test
     except:
         chb = False
 

@@ -5,7 +5,6 @@ import os
 
 os.environ['GLOG_minloglevel'] = '2'
 
-
 @app.route('/submit_house', methods=['POST'])
 def proc_house():
     print(request.form)
@@ -48,20 +47,12 @@ def proc_house():
     print("-- end house details --")
     return render_template('base.html', msg="User has been added to database")
 
-
 @app.route('/submit_friends', methods=['POST'])
-def proc_friends():
-    text = request.form['text']
-    try:
-        (chb := request.form['covid'])
-        chb = True # test
-    except:
-        chb = False
-
-    print(text, chb)
-
-    return render_template('base.html', msg="User has been added to database")
-
+def proc_friend():
+    friend1 = request.form["friend1"]
+    friend2 = request.form["friend2"]
+    print(friend1, friend2)
+    return render_template('base.html', msg="{} and {} are now friends".format(friend1, friend2))
 
 @app.route('/')
 def open_fn():

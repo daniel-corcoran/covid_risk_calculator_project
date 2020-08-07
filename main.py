@@ -2,8 +2,41 @@ from app import app
 from waitress import serve
 from flask import render_template, request
 import os
+from pyvis.network import Network
+import pandas as pd
+import random
 
 os.environ['GLOG_minloglevel'] = '2'
+
+houses = {1: ['jeff', 'jim', 'joe', 'james'],
+          2: ['bill', 'bob', 'bart', 'bryan'],
+          3: ['marty', 'melvin', 'max', 'mark']}
+
+friends = [('bob', 'jim'), ('marty', 'bryan')]
+
+
+def gen_iframe():
+    net = Network(height="500px", width="100%", bgcolor="#222222", font_color="white", notebook=True, heading='')
+
+    for h in houses:
+
+        import random
+        r = lambda: random.randint(150, 255)
+        c = '#%02X%02X%02X' % (r(), r(), r())
+        for member in houses[h]:
+            net.add_node(member, label=member, color=c)
+        for member_a in houses[h]:
+            for member_b in houses[h]:
+                if member_a != member_b:
+                    net.add_edge(member_a, member_b, length=100)
+
+    for f in friends:
+        f=list(f)
+        net.add_edge(f[0], f[1], length=250)
+
+
+
+    net.show('app/static/graph.html')
 
 @app.route('/submit_house', methods=['POST'])
 def proc_house():
@@ -45,18 +78,23 @@ def proc_house():
     for member in house:
         print(member, house[member])
     print("-- end house details --")
-    return render_template('base.html', msg="User has been added to database")
+
+    gen_iframe()
+
+    return render_template('base.html', iframe_src='/static/graph.html', msg="House has been added to database")
 
 @app.route('/submit_friends', methods=['POST'])
 def proc_friend():
     friend1 = request.form["friend1"]
     friend2 = request.form["friend2"]
     print(friend1, friend2)
-    return render_template('base.html', msg="{} and {} are now friends".format(friend1, friend2))
+    gen_iframe()
+    return render_template('base.html', iframe_src='/static/graph.html', msg="{} and {} are now friends".format(friend1, friend2))
 
 @app.route('/')
 def open_fn():
-    return render_template('base.html')
+    gen_iframe()
+    return render_template('base.html', iframe_src='/static/graph.html')
 
 
 if __name__ == '__main__':

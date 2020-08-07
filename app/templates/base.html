@@ -5,35 +5,99 @@
     <title>Covid Risk Calculator</title>
 </head>
 <body>
+
+<style>
+    h1 {
+        visibility: hidden;
+    }
+    #menu-content {
+        text-align: center;
+        content-align: center;
+    }
+    table, th {
+        margin: 0 auto; /* or margin: 0 auto 0 auto */
+        border: 1px solid black;
+    }
+    input[type="text"] {
+                text-align: center;
+            }
+
+</style>
+
+<div id="menu-content">
 {{msg}}<br>
 
+    <form id="input" action="/submit_friends" method="POST">
+    <table>
+        <tr>
+            <th colspan="2">Make two people friends!</th>
+        </tr>
+        <tr>
+            <td>
+                <input  type=text name="friend1"  placeholder="Friend 1">
+            </td>
+            <td>
+                <input type=text name="friend2" placeholder="Friend 2">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Submit">
+
+            </td>
+        </tr>
+
+    </table>
 
 
-<form id="input" action="/submit_friends" method="POST">
-    <br>Friend 1
-    <input name="friend1">
-    <br>Friend 2
-    <input name="friend2">
-    <input type="submit">
 </form>
 
-<h3>Register a new house</h3>
-
-
-
+<br><br>
 <div id="house_form">
-    <form id="input" action="/submit_house" method="POST">
 
-    <input name="address" placeholder="Home Address"><br>
-    <input name="member1" placeholder="Housemate 1"><input type="checkbox" name="covid-1" ><br>
-    <input name="member2" placeholder="Housemate 2"><input type="checkbox" name="covid-2" ><br>
-    <input name="member3" placeholder="Housemate 3"><input type="checkbox" name="covid-3" ><br>
-    <input name="member4" placeholder="Housemate 4"><input type="checkbox" name="covid-4" ><br>
-    <input type="submit">
+    <form id="input" action="/submit_house" method="POST">
+    <table>
+        <tr><th colspan="2">Register a new house!</th></tr>
+        <tr>
+            <td>
+                <input type=text name="member1" placeholder="Housemate 1"><br>
+                Has covid? <input type="checkbox" name="covid-1" >
+            </td>
+            <td>
+                <input type=text name="member2" placeholder="Housemate 2"><br>
+                Has covid? <input type="checkbox" name="covid-2" >
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type=text name="member3" placeholder="Housemate 3"><br>
+                Has covid? <input type="checkbox" name="covid-3" >
+            </td>
+            <td>
+                <input  type=text name="member4" placeholder="Housemate 4"><br>
+                Has covid? <input type="checkbox" name="covid-4" >
+            </td>
+        </tr>
+        <tr >
+            <td colspan="2">
+                <input type="submit">
+
+            </td>
+        </tr>
+
+    </table>
+
 </form>
 
 
 </div>
+    <br><br>
+
+    <iframe src="{{ iframe_src }}" style="width: 100%; height: 500px; h1.visibility: hidden;}"></iframe>
+
+</div>
+
+
 
 
 

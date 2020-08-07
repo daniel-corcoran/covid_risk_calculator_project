@@ -3,19 +3,17 @@ from waitress import serve
 from flask import render_template, request
 import os
 from pyvis.network import Network
-import pandas as pd
+import SQLiteCommands
 import random
 #
-os.environ['GLOG_minloglevel'] = '2'
+#os.environ['GLOG_minloglevel'] = '2'
 
-houses = {1: ['jeff', 'jim', 'joe', 'james'],
-          2: ['bill', 'bob', 'bart', 'bryan'],
-          3: ['marty', 'melvin', 'max', 'mark']}
 
-friends = [('bob', 'jim'), ('marty', 'bryan')]
 
 
 def gen_iframe():
+    friends = SQLiteCommands.get_friendships()
+    houses = SQLiteCommands.get_houses()
     net = Network(height="500px", width="100%", bgcolor="#222222", font_color="white", notebook=True, heading='')
 
     for h in houses:
@@ -40,6 +38,7 @@ def gen_iframe():
 
 @app.route('/submit_house', methods=['POST'])
 def proc_house():
+    print("Hello world")
     print(request.form)
 
     address = request.form['address']
@@ -47,7 +46,7 @@ def proc_house():
     roommate_2 = request.form['member2']
     roommate_3 = request.form['member3']
     roommate_4 = request.form['member4']
-
+    print("Got here")
     try:
         covid_1 = bool(request.form['covid-1'] == 'on')
     except:
@@ -74,11 +73,13 @@ def proc_house():
              'roommate 3': {'name': roommate_3, 'covid': covid_3},
              'roommate 4': {'name': roommate_4, 'covid': covid_4}}
 
+
     print("-- house details --")
     for member in house:
         print(member, house[member])
     print("-- end house details --")
-
+    SQLiteCommands.insert_house(address, roommate_1, roommate_2, roommate_3, roommate_4,
+                                covid_1, covid_2, covid_3, covid_4)
     gen_iframe()
 
     return render_template('base.html', iframe_src='/static/graph.html', msg="House has been added to database")
@@ -88,6 +89,7 @@ def proc_friend():
     friend1 = request.form["friend1"]
     friend2 = request.form["friend2"]
     print(friend1, friend2)
+    SQLiteCommands.insert_friendship(friend1, friend2)
     gen_iframe()
     return render_template('base.html', iframe_src='/static/graph.html', msg="{} and {} are now friends".format(friend1, friend2))
 

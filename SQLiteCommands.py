@@ -9,11 +9,7 @@ cursor.execute('CREATE TABLE IF NOT EXISTS houses(name TEXT, person1 Text, perso
 def insert_friendship(friend1, friend2):
     connection = sqlite3.connect('PLdatabase.db')
     cursor = connection.cursor()
-    #print("INSERT INTO friendship VALUES '{friend1}', '{friend2}')".format(
-    #    friend1=friend1, 
-    #    friend2=friend2, 
-        
-    #))
+
     cursor.execute("INSERT INTO friendship VALUES ('{friend1}', '{friend2}')".format(
         friend1=friend1, 
         friend2=friend2,
@@ -25,17 +21,7 @@ def insert_house(name, person1, person2, person3, person4, covid1, covid2, covid
 
     connection = sqlite3.connect('PLdatabase.db')
     cursor = connection.cursor()
-    #print("INSERT INTO houses VALUES ('{name}', '{person1}', '{person2}', '{person3}', '{person4}', '{covid1}', '{covid2}', '{covid3}', '{covid4}')".format(
-    #    name=name, 
-    #    person1=person1, 
-    #    person2=person2,
-    #    person3=person3,
-    #    person4=person4,
-    #    covid1 = covid1,
-    #    covid2 = covid2,
-    #    covid3 = covid3,
-    #    covid4 = covid4
-    #))
+
     cursor.execute("INSERT INTO houses VALUES ('{name}', '{person1}', '{person2}', '{person3}', '{person4}', '{covid1}', '{covid2}', '{covid3}', '{covid4}')".format(
         name=name, 
         person1=person1, 
@@ -58,6 +44,7 @@ def create_connection():
     insert_house('test', 't1', 't2', "t3", "t4", 1, 0, 1, 0)
     insert_friendship("test", "friend")
 
+
 def get_houses():
     connection = sqlite3.connect('PLdatabase.db')
     cursor = connection.cursor()
@@ -67,8 +54,8 @@ def get_houses():
     for row in cursor.fetchall():
         house_dict[row[0]] =[row[1], row[2], row[3], row[4]]
 
-    
-    print(house_dict)
+    return house_dict
+
 
 def get_friendships():
     connection = sqlite3.connect('PLdatabase.db')
@@ -80,13 +67,4 @@ def get_friendships():
         
         friendship_list.append((row[0], row[1]))
 
-    print(friendship_list)
-
-if __name__ == '__main__':
-    insert_friendship('hi', 'bye')
-    insert_friendship('1', '2')
-    insert_house('house1','jack','bill','mary','steve',0,0,0,0)
-    insert_house('house2','jack','bill','mary','steve',0,0,0,0)
-    
-    get_houses()
-    get_friendships()
+    return friendship_list

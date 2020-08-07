@@ -50,8 +50,8 @@
         
 
         // parsing and collecting nodes and edges from the python
-        nodes = new vis.DataSet([{"color": "#EEDFFF", "font": {"color": "white"}, "id": "Ilias", "label": "Ilias", "shape": "dot"}, {"color": "#EEDFFF", "font": {"color": "white"}, "id": "Ben", "label": "Ben", "shape": "dot"}, {"color": "#EEDFFF", "font": {"color": "white"}, "id": "Daniel", "label": "Daniel", "shape": "dot"}, {"color": "#EEDFFF", "font": {"color": "white"}, "id": "Drew", "label": "Drew", "shape": "dot"}, {"color": "#C8A2D9", "font": {"color": "white"}, "id": "Aaron", "label": "Aaron", "shape": "dot"}, {"color": "#C8A2D9", "font": {"color": "white"}, "id": "Elliot", "label": "Elliot", "shape": "dot"}, {"color": "#C8A2D9", "font": {"color": "white"}, "id": "Sam", "label": "Sam", "shape": "dot"}, {"color": "#C8A2D9", "font": {"color": "white"}, "id": "Tracey", "label": "Tracey", "shape": "dot"}]);
-        edges = new vis.DataSet([{"from": "Ilias", "length": 100, "to": "Ben"}, {"from": "Ilias", "length": 100, "to": "Daniel"}, {"from": "Ilias", "length": 100, "to": "Drew"}, {"from": "Ben", "length": 100, "to": "Daniel"}, {"from": "Ben", "length": 100, "to": "Drew"}, {"from": "Daniel", "length": 100, "to": "Drew"}, {"from": "Aaron", "length": 100, "to": "Elliot"}, {"from": "Aaron", "length": 100, "to": "Sam"}, {"from": "Aaron", "length": 100, "to": "Tracey"}, {"from": "Elliot", "length": 100, "to": "Sam"}, {"from": "Elliot", "length": 100, "to": "Tracey"}, {"from": "Sam", "length": 100, "to": "Tracey"}, {"from": "Aaron", "length": 250, "to": "Daniel"}]);
+        nodes = new vis.DataSet([]);
+        edges = new vis.DataSet([]);
 
         // adding nodes and edges to the graph
         data = {nodes: nodes, edges: edges};

@@ -5,9 +5,9 @@ import os
 from pyvis.network import Network
 import SQLiteCommands
 import random
-#
+os.remove('relationships.pl')
+os.system('touch relationships.pl')
 #os.environ['GLOG_minloglevel'] = '2'
-
 
 
 

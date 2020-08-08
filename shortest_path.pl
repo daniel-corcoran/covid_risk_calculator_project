@@ -1,15 +1,30 @@
-:- module(shortpath, [test/2]).
 
-:- use_module(library(solution_sequences), [order_by/2]).
-:- use_module(library(lists), [reverse/2]).
+:- [relationships].
 
-path(A, B, [B, A], C) :- node(A, B, C).
-path(A, B, [B|Ps], Cost) :-
-    node(C, B, Cost1),
-    path(A, C, Ps, Cost0),
-    Cost is Cost0 + Cost1.
 
-test(Path, Cost) :-
-    order_by([asc(Cost)],
-             ( path(placeA, placeH, Path0, Cost),
-               reverse(Path0, Path) )).
+connected(X,Y,L) :- edge(X,Y,L) ; edge(Y,X,L).
+
+path(A,B,Path,Len) :-
+       travel(A,B,[A],Q,Len),
+       reverse(Q,Path).
+
+travel(A,B,P,[B|P],L) :-
+       connected(A,B,L).
+travel(A,B,Visited,Path,L) :-
+       connected(A,C,D),
+       C \== B,
+       \+member(C,Visited),
+       travel(C,B,[C|Visited],Path,L1),
+       L is D+L1.
+
+shortest(A,B,Path,Length) :-
+   setof([P,L],path(A,B,P,L),Set),
+   Set = [_|_], % fail if empty
+   minimal(Set,[Path,Length]).
+
+minimal([F|R],M) :- min(R,F,M).
+
+% minimal path
+min([],M,M).
+min([[P,L]|R],[_,M],Min) :- L < M, !, min(R,[P,L],Min).
+min([_|R],M,Min) :- min(R,M,Min).

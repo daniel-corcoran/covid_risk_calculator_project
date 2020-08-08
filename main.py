@@ -4,14 +4,18 @@ from flask import render_template, request
 import os
 from pyvis.network import Network
 import SQLiteCommands
+
 import random
 os.remove('relationships.pl')
 os.system('touch relationships.pl')
 #os.environ['GLOG_minloglevel'] = '2'
 
-
+# swipl
+# consult('shortest_path.pl').
+# shortest('X', 'covid', Path, Length).
 
 def gen_iframe():
+
     friends = SQLiteCommands.get_friendships()
     houses = SQLiteCommands.get_houses()
     net = Network(height="500px", width="100%", bgcolor="#222222", font_color="white", notebook=True, heading='')
@@ -21,12 +25,20 @@ def gen_iframe():
         import random
         r = lambda: random.randint(150, 255)
         c = '#%02X%02X%02X' % (r(), r(), r())
+
         for member in houses[h]:
-            net.add_node(member, label=member, color=c)
+            if member[1] == 'True':
+                print(member[0])
+
+                net.add_node(member[0], label=member[0], color='#FF0000')
+
+            else:
+                net.add_node(member[0], label=member[0], color=c)
         for member_a in houses[h]:
             for member_b in houses[h]:
+
                 if member_a != member_b:
-                    net.add_edge(member_a, member_b, length=100)
+                    net.add_edge(member_a[0], member_b[0], length=100)
 
     for f in friends:
         f=list(f)
